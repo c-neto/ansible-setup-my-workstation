@@ -1,0 +1,36 @@
+---
+- debug:
+    msg: "user: {{ ansible_user_id }} - fedora major version: {{ ansible_distribution_major_version }}"
+
+- name: install rpm fusion free repo
+  become: yes
+  ansible.builtin.package:
+    state: latest
+    name: https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+
+- name: configure rpm fusion nonfree repo
+  become: yes
+  ansible.builtin.package:
+    state: latest
+    name: https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+
+- name: clear dnf cache
+  become: yes
+  command: dnf clean all
+
+- name: make dnf cache
+  become: yes
+  command: dnf makecache
+
+- name: update packages
+  become: yes
+  command: dnf update -y
+
+- name: install packages
+  become: yes
+  ansible.builtin.package:
+    state: latest
+    name:
+      - akmod-nvidia
+      - fedora-workstation-repositories
+      - gnome-tweak-tool

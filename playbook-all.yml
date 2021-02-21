@@ -1,0 +1,15 @@
+---
+
+- name: Configure My Fedora :)
+  gather_facts: true
+  hosts: localhost
+  connection: local
+  tasks:
+    - include_role:
+        name: role-gnome-settings
+    - include_role:
+        name: role-fedora-setup
+    - include_role:
+        name: role-install-tools
+    - include_role:
+        name: role-setup-terminal

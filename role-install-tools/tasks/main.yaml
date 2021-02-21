@@ -1,0 +1,55 @@
+---
+- debug:
+    msg: "user: {{ ansible_user_id }} - fedora major version: {{ ansible_distribution_major_version }}"
+
+- name: install packages
+  become: yes
+  ansible.builtin.package:
+    state: latest
+    name:
+      - awscli2
+      - flameshot
+      - fzf
+      - gimp
+      - git
+      - golang
+      - htop
+      - inkscape
+      - make
+      - rust
+      - snapd
+      - tilix
+      - transmission
+      - vim
+      - vlc
+      - youtube-dl
+      - zsh
+
+- name: enable classic snap support, enter the following to create a symbolic link between /var/lib/snapd/snap and /snap
+  become: yes
+  file:
+    src: /var/lib/snapd/snap
+    dest: /snap
+    state: link
+
+- name: install aws-vault
+  ansible.builtin.get_url:
+    url: https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-linux-amd64
+    dest: $HOME/.local/bin/aws-vault
+    mode: "0755"
+
+- name: install packages from snapd
+  become: yes
+  community.general.snap:
+    classic: true
+    name:
+      - pycharm-community
+      - code
+      - telegram-desktop
+
+- name: install vscode extensions
+  command: "code --install-extension {{ item }}"
+  loop:
+    - phplasma.csv-to-table
+    - redhat.vscode-yaml
+    - sidp.strict-whitespace

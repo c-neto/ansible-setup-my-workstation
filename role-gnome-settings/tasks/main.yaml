@@ -1,0 +1,19 @@
+---
+- name: separate gnome workspaces
+  command: gsettings set org.gnome.shell.app-switcher current-workspace-only true
+
+- name: copy gnome settings to /tmp/
+  ansible.builtin.copy:
+    src: dconf.ini
+    dest: /tmp/dconf.ini
+    mode: u+rw,g-r,o-r
+
+- name: configure the gnome settings
+  ansible.builtin.shell: "cat /tmp/dconf.ini | dconf load -f /"
+
+- name: remove the gnome settings temp file
+  file:
+    path: /tmp/dconf.ini
+    state: absent
+
+# TODO: install gnome extensions

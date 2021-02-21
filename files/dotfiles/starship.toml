@@ -1,0 +1,52 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = '''
+$kubernetes $aws $python
+$directory $git_branch
+$character
+'''
+
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# https://starship.rs/config/#package-version
+[package]
+disabled = true
+
+# https://starship.rs/config/#aws
+[aws]
+format = '| [$symbol($profile)]($style)'
+
+# https://starship.rs/config/#git-branch
+[git_branch]
+symbol = "🔀 "
+format = "| [$symbol$branch]($style) "
+
+# https://starship.rs/config/#python
+[python]
+format = "| [$virtualenv]($style)"
+
+# https://starship.rs/config/#character
+[character]
+success_symbol = '[\$](bold black)'
+error_symbol = '[\$](bold black)'
+
+# https://starship.rs/config/#kubernetes
+[kubernetes]
+disabled = false
+format = '[$symbol$context( \($namespace\))]($style)'
+contexts = [
+  { context_pattern = "*kind*", style = "cyan bold", symbol = "📚 " },
+  { context_pattern = "*rancher-desktop*", style = "cyan bold", symbol = "📚 " },
+
+  { context_pattern = "dev", style = "cyan bold", symbol = "🔵 " },
+  { context_pattern = "homolog", style = "yellow bold", symbol = "🟡 " },
+  { context_pattern = "prod", style = "red bold", symbol = "🔴 " },
+]
+
+# https://starship.rs/config/#directory
+[directory]
+style = 'white'
+truncate_to_repo = false
+truncation_length = 0
