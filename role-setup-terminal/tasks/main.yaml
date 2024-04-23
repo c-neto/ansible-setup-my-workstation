@@ -5,9 +5,25 @@
     state: latest
     name:
       - colordiff
-      - fzf
       - git
       - zsh
+
+- name: download fzf from github release
+  ansible.builtin.get_url:
+    url: https://github.com/junegunn/fzf/releases/latest/download/fzf-0.50.0-linux_amd64.tar.gz
+    dest: "/tmp/fzf-0.50.0-linux_amd64.tar.gz"
+    mode: "0755"
+
+- name: untar fzf
+  unarchive:
+    src: /tmp/fzf-0.50.0-linux_amd64.tar.gz
+    dest: /tmp/
+
+- name: move fzf binary to home local bin
+  copy:
+    src: /tmp/fzf
+    dest: $HOME/.local/bin/fzf
+    mode: 0755
 
 - name: download starship-install.sh
   ansible.builtin.get_url:
@@ -77,12 +93,6 @@
     dest: "$HOME/.my-custom-zsh/custom/plugins/kubetail"
     single_branch: yes
     depth: 1
-
-- name: install - fzf plugin
-  ansible.builtin.get_url:
-    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/fzf/fzf.plugin.zsh
-    dest: "$HOME/.my-custom-zsh/fzf.plugin.zsh"
-    mode: "0644"
 
 - name: install - k alias for kubectl
   ansible.builtin.get_url:

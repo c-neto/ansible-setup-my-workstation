@@ -9,7 +9,6 @@
     name:
       - awscli2
       - flameshot
-      - fzf
       - gimp
       - git
       - golang
@@ -37,6 +36,29 @@
     url: https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-linux-amd64
     dest: $HOME/.local/bin/aws-vault
     mode: "0755"
+
+- name: install fzf
+  ansible.builtin.get_url:
+    url: https://github.com/junegunn/fzf/releases/download/0.50.0/fzf-0.50.0-linux_amd64.tar.gz
+    dest: /tmp
+    mode: "0755"
+
+- name: download fzf from github release
+  ansible.builtin.get_url:
+    url: https://github.com/junegunn/fzf/releases/latest/download/fzf-0.50.0-linux_amd64.tar.gz
+    dest: "/tmp/fzf-0.50.0-linux_amd64.tar.gz"
+    mode: "0755"
+
+- name: untar fzf
+  unarchive:
+    src: /tmp/fzf-0.50.0-linux_amd64.tar.gz
+    dest: /tmp/
+
+- name: move fzf binary to home local bin
+  copy:
+    src: /tmp/fzf
+    dest: $HOME/.local/bin/fzf
+    mode: 0755
 
 - name: install packages from snapd
   become: yes

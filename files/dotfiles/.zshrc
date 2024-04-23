@@ -11,8 +11,15 @@ alias ll="ls -larht"
 # show confirm prompt
 alias rm="rm -i"
 
+# Documents shortcut
+alias cdd="cd $HOME/Documents"
+
 # show all history lines
 alias history="history 1"
+
+# alias for kubectl plugins
+alias kubectx="kubectl-ctx"
+alias kubens="kubectl-ns"
 
 # Set the locale of the shell
 export LANG="en_US.UTF-8"
@@ -45,7 +52,16 @@ export KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
 export WORDCHARS=""
 
 # fzf settings - configure the display options in the reverse search (CTRL + R)
-export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview 'echo {}' --preview-window=wrap"
+export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap --walker-skip .git,node_modules,venv,.venv,virtualenv,.terraform"
+
+# Preview full command
+export FZF_CTRL_R_OPTS="--preview 'echo {}'"
+
+# Preview file content using bat (https://github.com/sharkdp/bat)
+export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
+
+# Print tree structure in the preview window
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
 # Set the location and filename of the history file
 export HISTFILE="$HOME/.zsh_history"
@@ -102,6 +118,9 @@ bindkey '^[[Z' reverse-menu-complete
 # Delete characters using the "delete" key
 bindkey "^[[3~" delete-char
 
+# alias to CTRL + T
+bindkey "^@" fzf-cd-widget
+
 # >>> load ZSH plugin
 
 # Enable kubectl plugin autocompletion
@@ -116,8 +135,8 @@ source "$HOME/.my-custom-zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 # Load zsh-syntax-highlighting
 source "$HOME/.my-custom-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# Load fzf.plugin.zsh
-source "$HOME/.my-custom-zsh/fzf.plugin.zsh"
+# Load fzf keybindings and completions
+eval "$(fzf --zsh)"
 
 # Start Starship prompt
 eval "$(starship init zsh)"
