@@ -118,7 +118,7 @@ bindkey '^[[Z' reverse-menu-complete
 # Delete characters using the "delete" key
 bindkey "^[[3~" delete-char
 
-# alias to CTRL + T
+# fzf alias ALT + C >>> CTRL + SPACE
 bindkey "^@" fzf-cd-widget
 
 # >>> load ZSH plugin
