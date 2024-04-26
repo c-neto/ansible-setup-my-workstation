@@ -11,8 +11,8 @@ alias ll="ls -larht"
 # show confirm prompt
 alias rm="rm -i"
 
-# Documents shortcut
-alias cdd="cd $HOME/Documents"
+# documents shortcut
+alias cdd='cd "$HOME/Documents"'
 
 # show all history lines
 alias history="history 1"
@@ -21,54 +21,58 @@ alias history="history 1"
 alias kubectx="kubectl-ctx"
 alias kubens="kubectl-ns"
 
-# Set the locale of the shell
+# set the locale of the shell
 export LANG="en_US.UTF-8"
 
-# Define VSCode as the default text editor
+# define VSCode as the default text editor
 export EDITOR="code -w"
 
-# Include user-specific binaries and scripts
+# include user-specific binaries and scripts
 export PATH="$HOME/.local/bin:$PATH"
 
-# Add Rust binaries to the PATH
+# add Rust binaries to the PATH
 export PATH="$PATH:$HOME/.cargo/bin"
 
-# Add Go binaries to the PATH
+# add Go binaries to the PATH
 export PATH="$PATH:$HOME/go/bin"
 
 # system wide cli
 export PATH="$PATH:/usr/local/bin"
 
-# Include Krew binaries for managing kubectl plugins
+# include Krew binaries for managing kubectl plugins
 export PATH="$PATH:$HOME/.krew/bin"
 
 # add bundle cli binaries of the rancher desktop
 export PATH="$PATH:$HOME/.rd/bin"
 
-# Colorize "kubectl diff" command outputs
+# colorize "kubectl diff" command outputs
 export KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
 
-# Specify characters considered as word boundaries for command line navigation
+# specify characters considered as word boundaries for command line navigation
 export WORDCHARS=""
 
-# fzf settings - configure the display options in the reverse search (CTRL + R)
-export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap --walker-skip .git,node_modules,venv,.venv,virtualenv,.terraform"
-
-# Preview full command
-export FZF_CTRL_R_OPTS="--preview 'echo {}'"
-
-# Preview file content using bat (https://github.com/sharkdp/bat)
-export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
-
-# Print tree structure in the preview window
-export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-
-# Set the location and filename of the history file
+# set the location and filename of the history file
 export HISTFILE="$HOME/.zsh_history"
 
-# Set the maximum number of lines to be saved in the history file
+# set the maximum number of lines to be saved in the history file
 export HISTSIZE="100000"
 export SAVEHIST="$HISTSIZE"
+
+# configure layout parameters for fzf to optimize the fuzzy finder experience
+export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap"
+
+# configure reverse search powered by fzf (CTRL + R) and provide a preview of the selected item
+export FZF_CTRL_R_OPTS="--preview 'echo {}'"
+
+# set fd-find as the default search engine for fzf and exclude specific directories during searching
+export FZF_ALT_C_COMMAND="fd --type directory --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
+# filter only directories and execute the tree command (ALT + C) when selected
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+
+# set fd-find as the default search engine for fzf and exclude specific directories during searching
+export FZF_CTRL_T_COMMAND="fd --exclude .git --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
+# display file content if selected, or show the directory tree if selected (CTRL + T)
+export FZF_CTRL_T_OPTS="--preview '[ -d {} ] && tree -C {} || bat --color=always --style=numbers {}'"
 
 # disable CTRL + S and CTRL + Q
 stty -ixon
@@ -76,16 +80,16 @@ stty -ixon
 # enable comments "#" expressions in the prompt shell
 setopt INTERACTIVE_COMMENTS
 
-# Append new history entries to the history file
+# append new history entries to the history file
 setopt APPEND_HISTORY
 
-# Save each command to the history file as soon as it is executed
+# save each command to the history file as soon as it is executed
 setopt INC_APPEND_HISTORY
 
-# Ignore recording duplicate consecutive commands in the history
+# ignore recording duplicate consecutive commands in the history
 setopt HIST_IGNORE_DUPS
 
-# Ignore commands that start with a space in the history
+# ignore commands that start with a space in the history
 setopt HIST_IGNORE_SPACE
 
 # >>> bindkey tip: to discovery the code of your keys, execute "$ cat -v" and press the key, the code will be printed in your shell.
@@ -93,17 +97,17 @@ setopt HIST_IGNORE_SPACE
 # use the ZLE (zsh line editor) in emacs mode. Useful to move the cursor in large commands
 bindkey -e
 
-# Navigate words using Ctrl + arrow keys
+# navigate words using Ctrl + arrow keys
 # >>> CRTL + right arrow | CRTL + left arrow
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
-# Search history using Up and Down keys
+# search history using Up and Down keys
 # >>> up arrow | down arrow
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 
-# Jump to the start and end of the command line
+# jump to the start and end of the command line
 # >>> CTRL + A | CTRL + E
 bindkey "^A" beginning-of-line
 bindkey "^E" end-of-line
@@ -111,32 +115,35 @@ bindkey "^E" end-of-line
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
-# Navigate menu for command output
+# navigate menu for command output
 zstyle ':completion:*:*:*:*:*' menu select
 bindkey '^[[Z' reverse-menu-complete
 
-# Delete characters using the "delete" key
+# delete characters using the "delete" key
 bindkey "^[[3~" delete-char
 
-# fzf alias ALT + C >>> CTRL + SPACE
+# fzf alias: CTRL + SPACE -> (ALT + C)
 bindkey "^@" fzf-cd-widget
+
+# fzf alias: CTRL + F -> (CTRL + T)
+bindkey "^F" fzf-file-widget
 
 # >>> load ZSH plugin
 
-# Enable kubectl plugin autocompletion
+# enable kubectl plugin autocompletion
 autoload -Uz compinit
 compinit
 source "$HOME/.my-custom-zsh/kubectl.plugin.zsh"
 source <(kubectl completion zsh)
 
-# Load zsh-autosuggestions
+# load zsh-autosuggestions
 source "$HOME/.my-custom-zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
-# Load zsh-syntax-highlighting
+# load zsh-syntax-highlighting
 source "$HOME/.my-custom-zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
-# Load fzf keybindings and completions
+# load fzf keybindings and completions
 eval "$(fzf --zsh)"
 
-# Start Starship prompt
+# start Starship prompt
 eval "$(starship init zsh)"

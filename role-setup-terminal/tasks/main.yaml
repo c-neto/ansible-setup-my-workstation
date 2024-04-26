@@ -7,6 +7,7 @@
       - colordiff
       - git
       - zsh
+      - fd
 
 - name: download fzf from github release
   ansible.builtin.get_url:
@@ -64,6 +65,12 @@
   ansible.builtin.copy:
     src: dotfiles/starship.toml
     dest: "$HOME/.config/starship.toml"
+    mode: u+rw,g-r,o-r
+
+- name: customize zsh
+  ansible.builtin.copy:
+    src: dotfiles/.fd-fzf-ignore
+    dest: "$HOME/.my-custom-zsh"
     mode: u+rw,g-r,o-r
 
 - name: install zsh-syntax-highlighting
