@@ -58,7 +58,7 @@ export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE="100000"
 export SAVEHIST="$HISTSIZE"
 
-# fzf paramter used in all widgets - configure layout and wrapped the preview results (useful in large command rendering)
+# fzf parameters used in all widgets - configure layout and wrapped the preview results (useful in large command rendering)
 export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap"
 
 # CTRL + R: put the selected history command in the preview window - "{}" will be replaced by item selected in fzf execution runtime
