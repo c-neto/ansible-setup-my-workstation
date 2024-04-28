@@ -7,7 +7,7 @@
       - colordiff
       - git
       - zsh
-      - fd
+      - fd-find
 
 - name: download fzf from github release
   ansible.builtin.get_url:
