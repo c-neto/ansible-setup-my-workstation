@@ -58,16 +58,16 @@ export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE="100000"
 export SAVEHIST="$HISTSIZE"
 
-# configure layout parameters for fzf to optimize the fuzzy finder experience
+# fzf paramter used in all widgets - configure layout and wrapped the preview results (useful in large command rendering)
 export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap"
 
-# CTRL + R: put the selected history command in the preview window (useful in large command rendering)
+# CTRL + R: put the selected history command in the preview window - "{}" will be replaced by item selected in fzf execution runtime
 export FZF_CTRL_R_OPTS="--preview 'echo {}'"
 
 # ALT + C: set "fd-find" as directory search engine instead of "find" and exclude venv of the results during searching
 export FZF_ALT_C_COMMAND="fd --type directory --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
 
-# ALT + C: put the tree command output based on item selected ("{}" will be replaced by item selected in fzf execution runtime)
+# ALT + C: put the tree command output based on item selected
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
 # CTRL + T: set "fd-find" as search engine instead of "find" and exclude .git for the results
