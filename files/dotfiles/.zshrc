@@ -65,13 +65,13 @@ export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap"
 export FZF_CTRL_R_OPTS="--preview 'echo {}'"
 
 # ALT + C: set "fd-find" as directory search engine instead of "find" and exclude venv of the results during searching
-export FZF_ALT_C_COMMAND="fd --type directory --exclue"
+export FZF_ALT_C_COMMAND="fd --type directory --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
 
 # ALT + C: put the tree command output based on item selected ("{}" will be replaced by item selected in fzf execution runtime)
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
 # CTRL + T: set "fd-find" as search engine instead of "find" and exclude .git for the results
-export FZF_CTRL_T_COMMAND="fd --exclude .git"
+export FZF_CTRL_T_COMMAND="fd --exclude .git --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
 
 # CTRL + T: put the file content if item select is a file, or put tree command output if item selected is directory
 export FZF_CTRL_T_OPTS="--preview '[ -d {} ] && tree -C {} || bat --color=always --style=numbers {}'"
