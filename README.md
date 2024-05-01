@@ -67,7 +67,6 @@ Install these extensions:
 - GSConnect: https://extensions.gnome.org/extension/1319/gsconnect/
 - gTile: https://extensions.gnome.org/extension/28/gtile/
 - Search Light: https://extensions.gnome.org/extension/5489/search-light/
-- Sound Input & Output Device Chooser: https://extensions.gnome.org/extension/906/sound-output-device-chooser/
 
 > [!WARNING]
 > Use the firefox to install these extension.
