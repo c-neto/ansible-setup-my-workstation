@@ -1,9 +1,4 @@
-# configuration reference: https://carlosneto.dev/blog/2024/2024-02-08-starship-zsh/
-
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
-    # fix accents (mxkeys keyboard)
-    setxkbmap -model pc104 -layout us_intl
-fi
+# >>> reference: https://carlosneto.dev/blog/2024/2024-02-08-starship-zsh/
 
 # list files with details
 alias ll="ls -larht"
