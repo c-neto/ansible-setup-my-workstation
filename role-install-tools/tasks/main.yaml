@@ -2,6 +2,23 @@
 - debug:
     msg: "user: {{ ansible_user_id }} - fedora major version: {{ ansible_distribution_major_version }}"
 
+- name: create user wide binary path directory 
+  ansible.builtin.file:
+    path: "$HOME/.local/bin"
+    state: directory
+
+- name: clear dnf cache
+  become: yes
+  command: dnf clean all
+
+- name: make dnf cache
+  become: yes
+  command: dnf makecache
+
+- name: update packages
+  become: yes
+  command: dnf update -y
+
 - name: install packages
   become: yes
   ansible.builtin.package:
@@ -14,7 +31,9 @@
       - golang
       - htop
       - inkscape
+      - kubernetes-client
       - make
+      - openssl
       - rust
       - snapd
       - tilix
@@ -31,35 +50,6 @@
     dest: /snap
     state: link
 
-- name: install aws-vault
-  ansible.builtin.get_url:
-    url: https://github.com/99designs/aws-vault/releases/latest/download/aws-vault-linux-amd64
-    dest: $HOME/.local/bin/aws-vault
-    mode: "0755"
-
-- name: install fzf
-  ansible.builtin.get_url:
-    url: https://github.com/junegunn/fzf/releases/download/0.50.0/fzf-0.50.0-linux_amd64.tar.gz
-    dest: /tmp
-    mode: "0755"
-
-- name: download fzf from github release
-  ansible.builtin.get_url:
-    url: https://github.com/junegunn/fzf/releases/latest/download/fzf-0.50.0-linux_amd64.tar.gz
-    dest: "/tmp/fzf-0.50.0-linux_amd64.tar.gz"
-    mode: "0755"
-
-- name: untar fzf
-  unarchive:
-    src: /tmp/fzf-0.50.0-linux_amd64.tar.gz
-    dest: /tmp/
-
-- name: move fzf binary to home local bin
-  copy:
-    src: /tmp/fzf
-    dest: $HOME/.local/bin/fzf
-    mode: 0755
-
 - name: install packages from snapd
   become: yes
   community.general.snap:
@@ -68,10 +58,3 @@
       - pycharm-community
       - code
       - telegram-desktop
-
-- name: install vscode extensions
-  command: "code --install-extension {{ item }}"
-  loop:
-    - phplasma.csv-to-table
-    - redhat.vscode-yaml
-    - sidp.strict-whitespace

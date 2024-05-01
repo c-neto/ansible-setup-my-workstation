@@ -1,4 +1,9 @@
 ---
+- name: creates multiple directories in one task
+  ansible.builtin.file:
+    path: "$HOME/.local/bin"
+    state: directory
+
 - name: install zsh
   become: yes
   ansible.builtin.package:
@@ -11,13 +16,13 @@
 
 - name: download fzf from github release
   ansible.builtin.get_url:
-    url: https://github.com/junegunn/fzf/releases/latest/download/fzf-0.50.0-linux_amd64.tar.gz
-    dest: "/tmp/fzf-0.50.0-linux_amd64.tar.gz"
+    url: https://github.com/junegunn/fzf/releases/download/0.51.0/fzf-0.51.0-linux_amd64.tar.gz
+    dest: "/tmp/fzf.tar.gz"
     mode: "0755"
 
 - name: untar fzf
   unarchive:
-    src: /tmp/fzf-0.50.0-linux_amd64.tar.gz
+    src: /tmp/fzf.tar.gz
     dest: /tmp/
 
 - name: move fzf binary to home local bin
@@ -41,6 +46,7 @@
     state: absent
 
 - name: ensure default shell is /usr/bin/zsh for "{{ ansible_user_id }}"
+  become: yes
   ansible.builtin.user:
     name: "{{ ansible_user_id }}"
     shell: /usr/bin/zsh

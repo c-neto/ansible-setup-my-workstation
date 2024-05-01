@@ -4,7 +4,7 @@ Ansible Playbook to configure my personal Fedora workstation :rocket:
 
 It will be configured:
 
-- Configure Fedora fusion repos and snapd;
+- Configure snapd;
 - Configure dconf settings (keybing, shortcuts, gnome extensions configs...)
 - Install programming languages and IDE (Rust, Go, Pycharm, VSCode);
 - Install productivity utilities (flameshot, htop, tilix, and others...)
@@ -18,8 +18,6 @@ It will be configured:
 │   │   └── .zshrc              # custom zsh init file
 │   └── gconf-custom.conf       # custom gnome settings file
 ├── role-gnome-settings         # configure dconf settings (keybing, shortcuts, gnome extensions configs...)
-│   └── ...
-├── role-fedora-setup           # configure fedora fusion repos
 │   └── ...
 ├── role-install-tools          # configure fusion repos, snapd, rust, go, pycharm, vscode;
 │   └── ...
