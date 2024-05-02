@@ -10,3 +10,10 @@ $ sudo usermod -aG docker $USER
 Log in to the new docker group (to avoid having to log out / log in again; but if not enough, try to reboot):
 $ newgrp docker
 ```
+
+--- 
+
+
+krew install
+
+https://krew.sigs.k8s.io/docs/user-guide/setup/install/
