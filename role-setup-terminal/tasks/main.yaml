@@ -10,9 +10,9 @@
     state: latest
     name:
       - colordiff
+      - fd-find
       - git
       - zsh
-      - fd-find
 
 - name: download fzf from github release
   ansible.builtin.get_url:
@@ -73,7 +73,7 @@
     dest: "$HOME/.config/starship.toml"
     mode: u+rw,g-r,o-r
 
-- name: customize zsh
+- name: customize fzf
   ansible.builtin.copy:
     src: dotfiles/.fd-fzf-ignore
     dest: "$HOME/.my-custom-zsh"

@@ -17,3 +17,20 @@ $ newgrp docker
 krew install
 
 https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+
+
+---
+
+Print screen Gnome Settings (GNOME 41 issues)
+
+```toml
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
+binding='<Shift><Alt>x'
+command='flameshot gui'
+name='print-1'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='Print'
+command='flameshot gui'
+name='print-2'
+```

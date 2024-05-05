@@ -35,6 +35,7 @@
       - inkscape
       - kubernetes-client
       - make
+      - micro
       - openssl
       - rust
       - snapd
