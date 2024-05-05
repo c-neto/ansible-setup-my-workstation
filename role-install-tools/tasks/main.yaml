@@ -25,6 +25,8 @@
     state: latest
     name:
       - awscli2
+      - bat
+      - cargo
       - flameshot
       - gimp
       - git
