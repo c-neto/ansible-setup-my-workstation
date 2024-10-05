@@ -1,11 +1,10 @@
-# ansible-configure-fedora
+# ansible-configure-my-workstaion
 
-Ansible Playbook to configure my personal Fedora workstation :rocket:
+Ansible Playbook to configure my personal Fedora and MacBook workstation :rocket:
 
 It will be configured:
 
-- Configure snapd;
-- Configure dconf settings (keybing, shortcuts, gnome extensions configs...)
+- Configure dconf settings like keybing, shortcuts, gnome extensions configs (when _Gnone_ system)
 - Install programming languages and IDE (Rust, Go, Pycharm, VSCode);
 - Install productivity utilities (flameshot, htop, tilix, and others...)
 - Terminal prompt with custom theme of ZSH + Starship
@@ -23,8 +22,7 @@ It will be configured:
 │   └── ...
 ├── role-setup-terminal         # configure terminal prompt with zsh + starship
 │   └── ...
-├── playbook-all.yml            # run all roles
-├── playbook-only-terminal.yml  # run only role-setup-terminal
+├── playbook.yml                # run all roles
 └── Makefile                    # shortcut to setup venv and run the ansible playbook
 ```
 
@@ -41,8 +39,6 @@ It is necessary Python >= 3.7 install to run the Ansible Playbooks of this proje
 $ make setup
 ```
 
----
-
 - Run all setup roles:
 
 ```shell
@@ -50,14 +46,6 @@ $ make setup
 $ make run
 ```
 
----
-
-- Configure only terminal setup (__cross-platform supported__):
-
-```shell
-# only setup terminal
-$ make only-terminal
-```
 
 ## Manual Steps: Install Gnome Extensions
 

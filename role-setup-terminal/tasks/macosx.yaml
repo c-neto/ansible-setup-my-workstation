@@ -1,0 +1,84 @@
+---
+- name: creates multiple directories in one task
+  ansible.builtin.file:
+    path: "$HOME/.local/bin"
+    state: directory
+
+- community.general.homebrew_cask:
+    state: latest
+    name: "{{ item }}"
+  loop:
+    - iterm2
+
+- community.general.homebrew:
+    state: latest
+    name: "{{ item }}"
+  loop:
+      - colordiff
+      - fd
+      - git
+      - fzf
+      - zsh
+      - starship
+
+- name: create directory parent of the starship configuration file
+  ansible.builtin.file:
+    path: "$HOME/.config"
+    state: directory
+
+- name: create zsh plugins directory
+  ansible.builtin.file:
+    path: "$HOME/.my-custom-zsh"
+    state: directory
+
+- name: customize zsh
+  ansible.builtin.copy:
+    src: dotfiles/.zshrc
+    dest: "$HOME/.zshrc"
+    mode: u+rw,g-r,o-r
+
+- name: customize starship
+  ansible.builtin.copy:
+    src: dotfiles/starship.toml
+    dest: "$HOME/.config/starship.toml"
+    mode: u+rw,g-r,o-r
+
+- name: customize fzf
+  ansible.builtin.copy:
+    src: dotfiles/.fd-fzf-ignore
+    dest: "$HOME/.my-custom-zsh"
+    mode: u+rw,g-r,o-r
+
+- name: install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "$HOME/.my-custom-zsh/zsh-syntax-highlighting"
+    single_branch: yes
+    depth: 1
+
+- name: install - zsh-autosuggestions
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: "$HOME/.my-custom-zsh/zsh-autosuggestions"
+    single_branch: yes
+    depth: 1
+
+- name: install - spaceship-prompt
+  ansible.builtin.git:
+    repo: https://github.com/spaceship-prompt/spaceship-prompt.git
+    dest: "$HOME/.my-custom-zsh/themes/spaceship-prompt"
+    single_branch: yes
+    depth: 1
+
+- name: install - kubetail
+  ansible.builtin.git:
+    repo: https://github.com/johanhaleby/kubetail.git
+    dest: "$HOME/.my-custom-zsh/custom/plugins/kubetail"
+    single_branch: yes
+    depth: 1
+
+- name: install - k alias for kubectl
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh
+    dest: "$HOME/.my-custom-zsh/kubectl.plugin.zsh"
+    mode: "0644"

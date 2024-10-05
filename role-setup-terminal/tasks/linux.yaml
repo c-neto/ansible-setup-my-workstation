@@ -1,0 +1,114 @@
+---
+- name: creates multiple directories in one task
+  ansible.builtin.file:
+    path: "$HOME/.local/bin"
+    state: directory
+
+- name: install zsh
+  become: yes
+  ansible.builtin.package:
+    state: latest
+    name:
+      - colordiff
+      - fd-find
+      - git
+      - zsh
+
+- name: download fzf from github release
+  ansible.builtin.get_url:
+    url: https://github.com/junegunn/fzf/releases/download/0.51.0/fzf-0.51.0-linux_amd64.tar.gz
+    dest: "/tmp/fzf.tar.gz"
+    mode: "0755"
+
+- name: untar fzf
+  unarchive:
+    src: /tmp/fzf.tar.gz
+    dest: /tmp/
+
+- name: move fzf binary to home local bin
+  copy:
+    src: /tmp/fzf
+    dest: $HOME/.local/bin/fzf
+    mode: 0755
+
+- name: download starship-install.sh
+  ansible.builtin.get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship-install.sh
+    mode: "0755"
+
+- name: execute the zsh-installer.sh
+  ansible.builtin.command: sh /tmp/starship-install.sh -y
+
+- name: remove the zsh-installer.sh
+  ansible.builtin.file:
+    path: /tmp/starship-install.sh
+    state: absent
+
+- name: ensure default shell is /usr/bin/zsh for "{{ ansible_user_id }}"
+  become: yes
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    shell: /usr/bin/zsh
+
+- name: create directory parent of the starship configuration file
+  ansible.builtin.file:
+    path: "$HOME/.config"
+    state: directory
+
+- name: create zsh plugins directory
+  ansible.builtin.file:
+    path: "$HOME/.my-custom-zsh"
+    state: directory
+
+- name: customize zsh
+  ansible.builtin.copy:
+    src: dotfiles/.zshrc
+    dest: "$HOME/.zshrc"
+    mode: u+rw,g-r,o-r
+
+- name: customize starship
+  ansible.builtin.copy:
+    src: dotfiles/starship.toml
+    dest: "$HOME/.config/starship.toml"
+    mode: u+rw,g-r,o-r
+
+- name: customize fzf
+  ansible.builtin.copy:
+    src: dotfiles/.fd-fzf-ignore
+    dest: "$HOME/.my-custom-zsh"
+    mode: u+rw,g-r,o-r
+
+- name: install zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+    dest: "$HOME/.my-custom-zsh/zsh-syntax-highlighting"
+    single_branch: yes
+    depth: 1
+
+- name: install - zsh-autosuggestions
+  ansible.builtin.git:
+    repo: https://github.com/zsh-users/zsh-autosuggestions.git
+    dest: "$HOME/.my-custom-zsh/zsh-autosuggestions"
+    single_branch: yes
+    depth: 1
+
+- name: install - spaceship-prompt
+  ansible.builtin.git:
+    repo: https://github.com/spaceship-prompt/spaceship-prompt.git
+    dest: "$HOME/.my-custom-zsh/themes/spaceship-prompt"
+    single_branch: yes
+    depth: 1
+
+- name: install - kubetail
+  ansible.builtin.git:
+    repo: https://github.com/johanhaleby/kubetail.git
+    dest: "$HOME/.my-custom-zsh/custom/plugins/kubetail"
+    single_branch: yes
+    depth: 1
+
+- name: install - k alias for kubectl
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh
+    dest: "$HOME/.my-custom-zsh/kubectl.plugin.zsh"
+    mode: "0644"

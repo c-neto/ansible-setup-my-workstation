@@ -1,0 +1,40 @@
+---
+- name: create user wide binary path directory 
+  ansible.builtin.file:
+    path: "$HOME/.local/bin"
+    state: directory
+
+- community.general.homebrew:
+    update_homebrew: true
+
+- community.general.homebrew:
+    state: latest
+    name: "{{ item }}"
+  loop:
+      - awscli
+      - bat
+      - bash
+      - python
+      - git
+      - golang
+      - htop
+      - kubectl
+      - kubectx
+      - make
+      - micro
+      - openssl
+      - rust
+      - vim
+      - youtube-dl
+
+- community.general.homebrew_cask:
+    state: latest
+    name: "{{ item }}"
+  loop:
+    - visual-studio-code
+    - flameshot
+    - inkscape
+    - pycharm-ce
+    - telegram
+    - rancher
+    - gimp
