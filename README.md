@@ -1,4 +1,4 @@
-# ansible-configure-my-workstaion
+# ansible-setup-my-workstation
 
 Ansible Playbook to configure my personal Fedora and MacBook workstation :rocket:
 
