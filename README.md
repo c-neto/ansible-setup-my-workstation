@@ -4,7 +4,7 @@ Ansible Playbook to configure my personal Fedora and MacBook workstation :rocket
 
 It will be configured:
 
-- Configure dconf settings like keybing, shortcuts, gnome extensions configs (when _Gnone_ system)
+- Configure dconf settings like keybing, shortcuts, gnome extensions configs (_only if Linux + Gnome Workstation_)
 - Install programming languages and IDE (Rust, Go, Pycharm, VSCode);
 - Install productivity utilities (flameshot, htop, tilix, and others...)
 - Terminal prompt with custom theme of ZSH + Starship

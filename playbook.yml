@@ -4,7 +4,7 @@
   hosts: localhost
   connection: local
   tasks:
-    # only with GNOME
+    # only if Gnome Workstation...
     - include_role:
         name: role-gnome-settings
       when: lookup('env', 'XDG_CURRENT_DESKTOP') != ''
