@@ -40,6 +40,9 @@ export PATH="$PATH:$HOME/.krew/bin"
 # add bundle cli binaries of the rancher desktop
 export PATH="$PATH:$HOME/.rd/bin"
 
+# python cli
+export PATH="$PATH:$HOME/.venv/bin"
+
 # colorize "kubectl diff" command outputs
 export KUBECTL_EXTERNAL_DIFF="colordiff -N -u"
 
