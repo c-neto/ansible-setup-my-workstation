@@ -16,7 +16,7 @@ It will be configured:
 │   │   ├── starship.toml       # custom starship theme
 │   │   └── .zshrc              # custom zsh init file
 │   └── gconf-custom.conf       # custom gnome settings file
-├── role-gnome-settings         # configure dconf settings (keybing, shortcuts, gnome extensions configs...)
+├── role-gnome-settings         # configure dconf settings (keybing, shortcuts, gnome configs, etc)
 │   └── ...
 ├── role-install-tools          # configure fusion repos, snapd, rust, go, pycharm, vscode;
 │   └── ...
