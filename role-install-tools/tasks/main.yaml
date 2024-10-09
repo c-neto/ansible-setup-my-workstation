@@ -1,4 +1,9 @@
 ---
+- name: create user wide binary path directory 
+  ansible.builtin.file:
+    path: "$HOME/.local/bin"
+    state: directory
+
 - debug:
     msg: "os: {{ ansible_distribution }}/{{ ansible_distribution_major_version }}"
 

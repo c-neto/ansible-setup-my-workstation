@@ -46,8 +46,7 @@ $ make setup
 $ make run
 ```
 
-
-## Manual Steps: Install Gnome Extensions
+## Manual Steps: Install Gnome Extensions (only for Fedora)
 
 Install these extensions:
 
@@ -57,7 +56,7 @@ Install these extensions:
 - Search Light: https://extensions.gnome.org/extension/5489/search-light/
 
 > [!WARNING]
-> Use the firefox to install these extension.
+> Use the Firefox to install these extension.
 
 ## References
 

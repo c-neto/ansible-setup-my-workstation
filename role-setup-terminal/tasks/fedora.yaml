@@ -1,0 +1,47 @@
+---
+- name: install tools
+  become: yes
+  ansible.builtin.package:
+    state: latest
+    name:
+      - colordiff
+      - fd-find
+      - git
+      - zsh
+
+- name: download fzf from github release
+  ansible.builtin.get_url:
+    url: https://github.com/junegunn/fzf/releases/download/0.51.0/fzf-0.51.0-linux_amd64.tar.gz
+    dest: "/tmp/fzf.tar.gz"
+    mode: "0755"
+
+- name: untar fzf
+  unarchive:
+    src: /tmp/fzf.tar.gz
+    dest: /tmp/
+
+- name: move fzf binary to home local bin
+  copy:
+    src: /tmp/fzf
+    dest: $HOME/.local/bin/fzf
+    mode: 0755
+
+- name: download starship-install.sh
+  ansible.builtin.get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship-install.sh
+    mode: "0755"
+
+- name: execute the zsh-installer.sh
+  ansible.builtin.command: sh /tmp/starship-install.sh -y
+
+- name: remove the zsh-installer.sh
+  ansible.builtin.file:
+    path: /tmp/starship-install.sh
+    state: absent
+
+- name: ensure default shell is /usr/bin/zsh for "{{ ansible_user_id }}"
+  become: yes
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    shell: /usr/bin/zsh

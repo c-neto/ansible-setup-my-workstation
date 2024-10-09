@@ -1,12 +1,4 @@
 ---
-- debug:
-    msg: "user: {{ ansible_user_id }} - fedora major version: {{ ansible_distribution_major_version }}"
-
-- name: create user wide binary path directory 
-  ansible.builtin.file:
-    path: "$HOME/.local/bin"
-    state: directory
-
 - name: install packages
   ansible.builtin.package:
     state: latest
