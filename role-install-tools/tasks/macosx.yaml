@@ -7,9 +7,8 @@
     name: "{{ item }}"
   loop:
     - awscli
-    - bat
     - bash
-    - python
+    - bat
     - git
     - golang
     - htop
@@ -18,9 +17,10 @@
     - make
     - micro
     - openssl
+    - python
     - rust
+    - tree
     - vim
-    - youtube-dl
 
 - community.general.homebrew_cask:
     state: latest
