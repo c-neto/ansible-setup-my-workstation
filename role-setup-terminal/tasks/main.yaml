@@ -1,10 +1,4 @@
 ---
-- debug:
-    msg: "os: {{ ansible_distribution }}/{{ ansible_distribution_major_version }}"
-
-# install the tools based on operational system
-- ansible.builtin.include_tasks: "{{ ansible_distribution  | lower }}.yaml"
-
 - name: creates multiple directories in one task
   ansible.builtin.file:
     path: "$HOME/.local/bin"
@@ -19,6 +13,13 @@
   ansible.builtin.file:
     path: "$HOME/.my-custom-zsh"
     state: directory
+
+# print the operational system
+- debug:
+    msg: "os: {{ ansible_distribution }}/{{ ansible_distribution_major_version }}"
+
+# install the tools based on operational system
+- ansible.builtin.include_tasks: "{{ ansible_distribution  | lower }}.yaml"
 
 - name: customize zsh
   ansible.builtin.copy:
