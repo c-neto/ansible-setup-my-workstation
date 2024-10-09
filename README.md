@@ -28,7 +28,9 @@ It will be configured:
 
 ## Requirements
 
-It is necessary Python >= 3.7 install to run the Ansible Playbooks of this project.
+- python >= 3.7
+- pip
+- brew (_if MacBook_)
 
 ## How to Run
 
@@ -60,6 +62,7 @@ Install these extensions:
 
 ## References
 
+- https://brew.sh/
 - https://carlosneto.dev/blog/2024/2024-02-08-starship-zsh/
 - https://docs.rancherdesktop.io/getting-started/installation/#installing-via-rpm-package
 - https://github.com/99designs/aws-vault/
