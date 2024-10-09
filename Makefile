@@ -1,6 +1,6 @@
 setup:
-	python3 -m venv venv
-	python3 -m venv ~/.venv
+	python3 -m venv ~/.venv 
+	python3 -m venv venv 
 	venv/bin/pip install -r requirements.txt
 	venv/bin/ansible-galaxy collection install -r requirements.yml
 

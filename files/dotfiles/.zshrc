@@ -62,12 +62,6 @@ export FZF_DEFAULT_OPTS="--height 100% --layout reverse --preview-window=wrap"
 # CTRL + R: put the selected history command in the preview window - "{}" will be replaced by item selected in fzf execution runtime
 export FZF_CTRL_R_OPTS="--preview 'echo {}'"
 
-# ALT + C: set "fd-find" as directory search engine instead of "find" and exclude venv of the results during searching
-export FZF_ALT_C_COMMAND="fd --type directory --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
-
-# ALT + C: put the tree command output based on item selected
-export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-
 # CTRL + T: set "fd-find" as search engine instead of "find" and exclude .git for the results
 export FZF_CTRL_T_COMMAND="fd --exclude .git --ignore-file $HOME/.my-custom-zsh/.fd-fzf-ignore"
 
@@ -102,6 +96,13 @@ bindkey -e
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
 
+# macosx override
+if [[ "$OSTYPE" == "darwin"* ]]; then 
+  # >>> OPT + right arrow | OPT + left arrow
+  bindkey "^[^[[C" forward-word
+  bindkey "^[^[[D" backward-word
+fi
+
 # search history using Up and Down keys
 # >>> up arrow | down arrow
 bindkey "^[[A" history-beginning-search-backward
@@ -122,11 +123,8 @@ bindkey '^[[Z' reverse-menu-complete
 # delete characters using the "delete" key
 bindkey "^[[3~" delete-char
 
-# fzf alias: CTRL + SPACE -> (ALT + C)
-bindkey "^@" fzf-cd-widget
-
-# fzf alias: CTRL + F -> (CTRL + T)
-bindkey "^F" fzf-file-widget
+# fzf alias: CTRL + SPACE (gadget parameters configured in the FZF_CTRL_T_COMMAND environment variable)
+bindkey "^@" fzf-file-widget
 
 # >>> load ZSH plugin
 

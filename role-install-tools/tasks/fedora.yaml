@@ -18,6 +18,7 @@
       - openssl
       - rust
       - snapd
+      - telnet
       - tilix
       - transmission
       - tree

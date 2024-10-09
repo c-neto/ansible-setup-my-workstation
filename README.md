@@ -34,16 +34,10 @@ It will be configured:
 
 ## How to Run
 
-- Install dependencies:
-
 ```shell
 # create a venv and install ansible inside it
 $ make setup
-```
 
-- Run all setup roles:
-
-```shell
 # install tools and setup terminal
 $ make run
 ```

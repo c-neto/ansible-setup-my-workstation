@@ -19,6 +19,7 @@
     - openssl
     - python
     - rust
+    - telnet
     - tree
     - vim
 
